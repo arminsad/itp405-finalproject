@@ -11,9 +11,9 @@ class IngredientController extends Controller
 {
     public function index()
     {
-        $foods = Food::all();
+        // $foods = Food::all();
         return view('search', [
-            'foods' => $foods,
+            'foods' => Food::all(),
         ]);
     }
 }

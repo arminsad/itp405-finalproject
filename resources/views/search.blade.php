@@ -7,8 +7,8 @@
     <form method="post" action="{{ route('result') }}">
         @csrf
         <div class="mb-3">
-            <label for="food" class="form-label">Food Name:</label>
-            <select id = "food" name="food">
+            <label for="foods" class="form-label">Food Name:</label>
+            <select id = "foods" name="foods">
                 <option value="" selected>-- Choose a Food --</option>
                 @foreach($foods as $food)
                     <option value="{{ $food->food_id }}">

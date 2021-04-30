@@ -18,7 +18,7 @@
                     <td>{{$food->food->name}}</td> 
                     @if(Auth::check())
                     <td>
-                        <a class="btn btn-danger" href= "{{route('favorites.remove', ['food_id' => $food->foods_id])}}">
+                        <a class="btn btn-danger" href= "{{route('favorites.remove', ['food_id' => $food->food_id])}}">
                             Remove
                         </a>
                     </td>

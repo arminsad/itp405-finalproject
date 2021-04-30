@@ -18,7 +18,7 @@
                     @if (Auth::check())
                         @if (Auth::user()->role->slug == 'user')
                         <li class="nav-item">
-                            <a href="{{ route('bookmark')}}" class="nav-link">Bookmark List</a> 
+                            <a href="{{ route('favorites')}}" class="nav-link">Favorites List</a> 
                         </li>
                         @endif
                         <li class="nav-item">

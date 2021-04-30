@@ -13,9 +13,11 @@
     <a class="btn btn-success" href= "{{route('ingredient.add', ['food_id' => $food->id])}}">
         Add New Ingredient
     </a>
-    <a class="btn btn-primary float-right" href= "{{route('favorites.add', ['food_id' => $food->id])}}">
-        Add To Favorites List
-    </a>
+    @if (Auth::user()->role->slug == 'user')
+        <a class="btn btn-primary" href= "{{route('favorites.add', ['food_id' => $food->id])}}">
+            Add To Favorites List
+        </a>
+    @endif
     {{-- @endif --}}
     <table class="table table-striped">
         <thead>

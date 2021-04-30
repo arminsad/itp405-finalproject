@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Food;
 
 class Ingredient extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['ingredient_id', 'ingredient_name'];
+    protected $fillable = ['name'];
 
     public function foods()
     {

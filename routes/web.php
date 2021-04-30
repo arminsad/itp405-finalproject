@@ -6,6 +6,7 @@ use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FavoritesController;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,10 @@ use App\Http\Controllers\FavoritesController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+if (env('APP_ENV') !== 'local') {
+    URL::forceScheme('https');
+}
 
 Route::get('/', [FoodController::class, 'index'])->name('search');
 Route::get('/result', [FoodController::class, 'result'])->name('result');

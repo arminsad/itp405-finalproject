@@ -7,6 +7,7 @@
         <thead>
             <tr>
                 <th>Food</th>
+                <th>Added At</th>
                 @if(Auth::check())
                     <th></th>
                 @endif
@@ -16,6 +17,7 @@
             @foreach($foods as $food)
                 <tr>
                     <td>{{$food->food->name}}</td> 
+                    <td>{{$food->created_at}}</td> 
                     @if(Auth::check())
                     <td>
                         <a class="btn btn-danger" href= "{{route('favorites.remove', ['food_id' => $food->food_id])}}">

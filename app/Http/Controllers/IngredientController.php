@@ -6,11 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\Food;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Ingredient;
+use Illuminate\Support\Facades\Gate;
 
 class IngredientController extends Controller
 {
     public function add_ingredient($food_id)
     {
+        $food = Food::find($food_id);
+        if (Gate::denies('edit-food', $food)) {
+            abort(403);
+        }
         return view('add_ingredient', [
             'food_id' => $food_id,
         ]);
@@ -31,6 +36,9 @@ class IngredientController extends Controller
             $new_ing->save();
 
             $food = Food::find($food_id);
+            if (Gate::denies('edit-food', $food)) {
+                abort(403);
+            }
             $food->ingredients()->attach($new_ing->id);
 
             return view('result', [
@@ -41,6 +49,9 @@ class IngredientController extends Controller
         }
         else{
             $food = Food::find($food_id);
+            if (Gate::denies('edit-food', $food)) {
+                abort(403);
+            }
             $food->ingredients()->attach($ingredient->id);
 
             return view('result', [
@@ -55,7 +66,9 @@ class IngredientController extends Controller
     {
         $food = Food::find($food_id);
         $ingredient = $food->ingredients()->where('id', '=', $ing_id)->first();
-
+        if (Gate::denies('edit-ingredient', $ingredient)) {
+            abort(403);
+        }
         return view('edit_ingredient', [
             'food_id' => $food_id,
             'ing_id' => $ing_id,
@@ -71,6 +84,9 @@ class IngredientController extends Controller
 
         $input = $request->input('ingredient');
         $ingredient = Ingredient::where('name', 'like', $input)->first();
+        if (Gate::denies('edit-ingredient', $ingredient)) {
+            abort(403);
+        }
         if($ingredient === NULL){
             $new_ing = new Ingredient();
             $new_ing->name = $input;
@@ -126,7 +142,9 @@ class IngredientController extends Controller
         $food->ingredients()->detach($ing_id);
 
         $ingredient = $food->ingredients()->where('id', '=', $ing_id)->first();
-
+        if (Gate::denies('edit-ingredient', $ingredient)) {
+            abort(403);
+        }
         if ($ingredient === NULL){
             $del_ing = Ingredient::find($ing_id);
             $del_ing->delete();

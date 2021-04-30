@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Food;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Ingredient;
+use Illuminate\Support\Facades\Gate;
 
 class FoodController extends Controller
 {
@@ -46,6 +47,9 @@ class FoodController extends Controller
     public function edit_food($food_id)
     {
         $food = Food::find($food_id);
+        if (Gate::denies('edit-food', $food)) {
+            abort(403);
+        }
         return view('edit_food', [
             'food' => $food,
         ]);
@@ -62,6 +66,9 @@ class FoodController extends Controller
         $food = Food::find($food_id);
         $food->name = $input;
         $food->save();
+        if (Gate::denies('edit-food', $food)) {
+            abort(403);
+        }
         return view('result', [
             'food' => $food,
             'ingredients' => $food->ingredients()->get(),
@@ -72,6 +79,9 @@ class FoodController extends Controller
     public function delete_food($food_id)
     {
         $food = Food::find($food_id);
+        if (Gate::denies('edit-food', $food)) {
+            abort(403);
+        }
         $food_name = $food->name;
         $ingredients = $food->ingredients()->get();
         $food->ingredients()->detach();

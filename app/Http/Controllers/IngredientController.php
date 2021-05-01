@@ -89,28 +89,39 @@ class IngredientController extends Controller
         $ingredient = Ingredient::where('name', 'like', $input)->first();
 
         if($ingredient === NULL){
-            $new_ing = new Ingredient();
-            $new_ing->name = $input;
-            $new_ing->user_id = Auth::user()->id;
-            $new_ing->save();
-            $food = Food::find($food_id);
-            if (Gate::denies('edit-food', $food)) {
-                abort(403);
+            $ing = Ingredient::find($ing_id);
+            $check_food = $ing->foods()->where('food_id', '!=', $food_id)->first();
+            if ($check_food === NULL){
+                Ingredient::where('id', '=', $ing_id)->update([
+                    'name' => $input,
+                    'user_id' => Auth::user()->id,
+                ]);
             }
-            $food->ingredients()->updateExistingPivot($ing_id, [
-                'ingredient_id' => $new_ing->id,
-            ]);
+            else{
+                $new_ing = new Ingredient();
+                $new_ing->name = $input;
+                $new_ing->user_id = Auth::user()->id;
+                $new_ing->save();
+                $food = Food::find($food_id);
+                if (Gate::denies('edit-food', $food)) {
+                    abort(403);
+                }
 
-            $ingredient_old = $food->ingredients()->where('id', '=', $ing_id)->first();
+                $food->ingredients()->updateExistingPivot($ing_id, [
+                    'ingredient_id' => $new_ing->id,
+                ]);
 
-            if ($ingredient_old === NULL){
-                $del_ing = Ingredient::find($ing_id);
-                $del_ing->delete();
+                // $ingredient_old = $food->ingredients()->where('id', '=', $ing_id)->first();
+
+                // if ($ingredient_old === NULL){
+                //     $del_ing = Ingredient::find($ing_id);
+                //     $del_ing->delete();
+                // }
+
+                return redirect()
+                ->route('result', ['food_id' => $food_id])
+                ->with('success', "Successfully created {$input}");
             }
-
-            return redirect()
-            ->route('result', ['food_id' => $food_id])
-            ->with('success', "Successfully created {$input}");
         }
         else{
             $food = Food::find($food_id);
@@ -129,12 +140,18 @@ class IngredientController extends Controller
                 'ingredient_id' => $ingredient->id,
             ]);
 
-            $ing_old = $food->ingredients()->where('id', '=', $ing_id)->first();
-
-            if ($ing_old === NULL){
+            $ing = Ingredient::find($ing_id);
+            $check_food = $ing->foods()->where('food_id', '!=', $food_id)->first();
+            if ($check_food === NULL){
                 $del_ing = Ingredient::find($ing_id);
                 $del_ing->delete();
             }
+            // $ing_old = $food->ingredients()->where('id', '=', $ing_id)->first();
+
+            // if ($ing_old === NULL){
+            //     $del_ing = Ingredient::find($ing_id);
+            //     $del_ing->delete();
+            // }
 
             return redirect()
             ->route('result', ['food_id' => $food_id])

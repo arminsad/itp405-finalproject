@@ -24,7 +24,7 @@ class IngredientController extends Controller
     public function store_ingredient($food_id,Request $request)
     {
         $request->validate([
-            'ingredient' => 'required|unique:ingredients,name|max:50',
+            'ingredient' => 'required|max:50',
         ]);
 
         $input = $request->input('ingredient');
@@ -79,7 +79,7 @@ class IngredientController extends Controller
     public function update_ingredient($food_id, $ing_id, Request $request)
     {
         $request->validate([
-            'ingredient' => 'required|unique:ingredients,name|max:50',
+            'ingredient' => 'required|max:50',
         ]);
 
         $input = $request->input('ingredient');

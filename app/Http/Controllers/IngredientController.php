@@ -111,13 +111,6 @@ class IngredientController extends Controller
                     'ingredient_id' => $new_ing->id,
                 ]);
 
-                // $ingredient_old = $food->ingredients()->where('id', '=', $ing_id)->first();
-
-                // if ($ingredient_old === NULL){
-                //     $del_ing = Ingredient::find($ing_id);
-                //     $del_ing->delete();
-                // }
-
                 return redirect()
                 ->route('result', ['food_id' => $food_id])
                 ->with('success', "Successfully created {$input}");
@@ -146,12 +139,6 @@ class IngredientController extends Controller
                 $del_ing = Ingredient::find($ing_id);
                 $del_ing->delete();
             }
-            // $ing_old = $food->ingredients()->where('id', '=', $ing_id)->first();
-
-            // if ($ing_old === NULL){
-            //     $del_ing = Ingredient::find($ing_id);
-            //     $del_ing->delete();
-            // }
 
             return redirect()
             ->route('result', ['food_id' => $food_id])

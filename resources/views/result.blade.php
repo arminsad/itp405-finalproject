@@ -14,10 +14,12 @@
             Add New Ingredient
         </a>
     @endcan
-    @if (Auth::user()->role->slug == 'user')
-        <a class="btn btn-primary" href= "{{route('favorites.add', ['food_id' => $food->id])}}">
-            Add To Favorites List
-        </a>
+    @if(Auth::check())
+        @if (Auth::user()->role->slug == 'user')
+            <a class="btn btn-primary" href= "{{route('favorites.add', ['food_id' => $food->id])}}">
+                Add To Favorites List
+            </a>
+        @endif
     @endif
     <table class="table table-striped">
         <thead>

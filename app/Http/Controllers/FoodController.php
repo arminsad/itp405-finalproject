@@ -7,6 +7,7 @@ use App\Models\Food;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Ingredient;
 use Illuminate\Support\Facades\Gate;
+use App\Models\Favorite;
 
 class FoodController extends Controller
 {
@@ -92,6 +93,10 @@ class FoodController extends Controller
                 $del_ing = Ingredient::find($ingredient->id);
                 $del_ing->delete();
             }
+        }
+        $fav_foods = Favorite::where('food_id', '=', $food_id)->get();
+        foreach($fav_foods as $fav_food){
+            $fav_food->delete();
         }
         
         $food->delete();

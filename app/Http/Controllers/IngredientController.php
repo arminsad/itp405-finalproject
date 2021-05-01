@@ -145,17 +145,37 @@ class IngredientController extends Controller
     public function delete_ingredient($food_id, $ing_id)
     {
         $food = Food::find($food_id);
-        $ing_name = $food->ingredients()->where('id', '=', $ing_id)->first()->name;
-        $food->ingredients()->detach($ing_id);
-
-        $ingredient = $food->ingredients()->where('id', '=', $ing_id)->first();
         if (Gate::denies('edit-food', $food)) {
             abort(403);
         }
-        if ($ingredient === NULL){
+        $ing_name = $food->ingredients()->where('id', '=', $ing_id)->first()->name;
+        $food->ingredients()->detach($ing_id);
+        // $flag = 1;
+
+        $ing = Ingredient::find($ing_id);
+        $check_food = $ing->foods()->where('food_id', '!=', $food_id)->first();
+        if ($check_food === NULL){
             $del_ing = Ingredient::find($ing_id);
             $del_ing->delete();
         }
+        
+
+        // $check_foods = Food::all();
+        // foreach ($check_foods as $check_food){
+        //     $check = $check_food->ingredients()->where('id', '=', $ing_id)->first();
+        //     if ($check !== NULL){
+        //         // return redirect()
+        //         // ->route('result', ['food_id' => $food_id])
+        //         // ->with('error', "Successfully deleted {$ing_name}");
+        //         $flag = 0;
+        //         break;
+        //     }
+        // }
+
+        // // if ($flag){
+        //     $del_ing = Ingredient::find($ing_id);
+        //     $del_ing->delete();
+        // }
 
         return redirect()
         ->route('result', ['food_id' => $food_id])

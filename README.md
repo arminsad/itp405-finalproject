@@ -1,5 +1,6 @@
 # itp405-finalproject
 [Heroku App](https://arminsad-finalprojectapp.herokuapp.com)
+
 ![Database Diagram](diagram.png)
 1. The goal of the application is to provide information regarding foods people are consuming by showing ingredients.
 2. The primary audience is the curious consumer that wants to know more about what they're eating.

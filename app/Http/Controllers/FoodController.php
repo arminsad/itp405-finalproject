@@ -24,7 +24,7 @@ class FoodController extends Controller
         if($food_id == 0){
             $id = $_GET['foods'];
             $food = Food::find($id);
-            $ingredients = $food->ingredients()->get();
+            $ingredients = $food->ingredients()->orderBy('name')->get();
             return view('result', [
                 'food' => $food,
                 'ingredients' => $ingredients,

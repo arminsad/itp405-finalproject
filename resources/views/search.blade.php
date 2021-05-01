@@ -4,7 +4,7 @@
 
 @section('content')
     <p>Don't have an account? Please <a href="{{ route('registration.index') }}">register</a>.</p>
-    <form method="get" action="{{ route('result') }}">
+    <form method="get" action="{{ route('result', ['food_id' => 0]) }}">
         @csrf
         <div class="mb-3">
             <label for="foods" class="form-label">Food Name:</label>

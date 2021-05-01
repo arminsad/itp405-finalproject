@@ -39,9 +39,5 @@ class AuthServiceProvider extends ServiceProvider
             return $user->id === $food->user_id;
         });
 
-        Gate::define('edit-ingredient', function (User $user, Ingredient $ingredient){
-            return $user->id === $ingredient->user_id;
-        });
-
     }
 }

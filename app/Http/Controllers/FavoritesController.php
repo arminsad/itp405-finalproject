@@ -28,7 +28,7 @@ class FavoritesController extends Controller
         $food = Food::find($food_id);
 
         return redirect()
-        ->route('favorites')
+        ->route('result', ['food_id' => $food_id])
         ->with('success', "Successfully added {$food->name} to Favorites List");
     }
 

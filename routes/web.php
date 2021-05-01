@@ -24,7 +24,7 @@ if (env('APP_ENV') !== 'local') {
 }
 
 Route::get('/', [FoodController::class, 'index'])->name('search');
-Route::get('/result', [FoodController::class, 'result'])->name('result');
+Route::get('/result/{food_id}/index', [FoodController::class, 'result'])->name('result');
 
 Route::get('/login', [AuthController::class, 'loginForm'])->name('auth.loginForm');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');

@@ -20,9 +20,9 @@
                     </li>
                     @if (Auth::check())
                         @if (Auth::user()->role->slug == 'user')
-                        <li class="nav-item">
-                            <a href="{{ route('favorites')}}" class="nav-link">Favorites List</a> 
-                        </li>
+                            <li class="nav-item">
+                                <a href="{{ route('favorites')}}" class="nav-link">Favorites List</a> 
+                            </li>
                         @endif
                         <li class="nav-item">
                             <form method="post" action="{{ route('auth.logout') }}">

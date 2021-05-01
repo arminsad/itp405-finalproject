@@ -15,7 +15,7 @@ class Food extends Model
 
     public function ingredients()
     {
-        return $this->belongsToMany(Ingredient::class);
+        return $this->belongsToMany(Ingredient::class)->withTimestamps();
     }
 
     public function user()

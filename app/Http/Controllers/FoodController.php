@@ -19,15 +19,27 @@ class FoodController extends Controller
         ]);
     }
 
-    public function result()
+    public function result($food_id)
     {
-        $id = $_GET['foods'];
-        $food = Food::find($id);
-        $ingredients = $food->ingredients()->get();
-        return view('result', [
-            'food' => $food,
-            'ingredients' => $ingredients,
-        ]);
+        if($food_id == 0){
+            $id = $_GET['foods'];
+            $food = Food::find($id);
+            $ingredients = $food->ingredients()->get();
+            return view('result', [
+                'food' => $food,
+                'ingredients' => $ingredients,
+            ]);
+        }
+        else{
+            $id = $food_id;
+            $food = Food::find($id);
+            $ingredients = $food->ingredients()->get();
+            return view('result', [
+                'food' => $food,
+                'ingredients' => $ingredients,
+            ]);
+        }
+
     }
 
     public function store_food(Request $request)
@@ -70,10 +82,9 @@ class FoodController extends Controller
         if (Gate::denies('edit-food', $food)) {
             abort(403);
         }
-        return view('result', [
-            'food' => $food,
-            'ingredients' => $food->ingredients()->get(),
-        ])
+
+        return redirect()
+        ->route('result', ['food_id' => $food_id])
         ->with('success', "Successfully created {$input}");
     }
 

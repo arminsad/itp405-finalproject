@@ -35,7 +35,7 @@
             @foreach($ingredients as $ingredient)
                 <tr>
                     <td>{{$ingredient->name}}</td> 
-                    @can('edit-ingredient', $ingredient)
+                    @can('edit-food', $food)
                         <td>
                             <a class="btn btn-danger" href= "{{route('ingredient.delete', ['food_id' => $food->id, 'ing_id' => $ingredient->id])}}" onclick="return confirm('Are you sure you want to delete \'{{$ingredient->name}}\'?');">
                                 Delete

@@ -15,6 +15,9 @@
                     <li class="nav-item">
                         <a href="{{ route('search')}}" class="nav-link">Ingredient Search</a> 
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('about')}}" class="nav-link">About</a> 
+                    </li>
                     @if (Auth::check())
                         @if (Auth::user()->role->slug == 'user')
                         <li class="nav-item">

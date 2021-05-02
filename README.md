@@ -1,5 +1,6 @@
 # itp405-finalproject
 [Heroku App](https://arminsad-finalprojectapp.herokuapp.com)
+[Video Walkthrough](https://drive.google.com/file/d/13JbuTB1pBskwKn81svmrvlrZ-gsVfu2F/view?usp=sharing)
 
 ![Database Diagram](diagram.png)
 1. The goal of the application is to provide information regarding foods people are consuming by showing ingredients.
